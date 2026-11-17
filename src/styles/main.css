@@ -15,6 +15,11 @@
   --color-brand: #0f6b5c;
   --color-brand-hover: #0c5649;
   --color-surface: #ffffff;
+
+  /* Movimento — curvas viram utilities (`ease-out-soft`…). Ver skill `motion`. */
+  --ease-out-soft: cubic-bezier(0.22, 0.8, 0.24, 1);
+  --ease-in-out-soft: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
 }
 
 @theme inline {
@@ -136,6 +141,14 @@
   --chart-4: #f4f5f7;
   --chart-5: #ffffff;
   --radius: 0.625rem;
+
+  /* Durações — feedback < transição < entrada < cena. Ajuste o ritmo ao conceito. */
+  --duration-instant: 120ms;
+  --duration-fast: 200ms;
+  --duration-base: 320ms;
+  --duration-slow: 600ms;
+  --duration-scene: 1200ms;
+  --stagger: 80ms;
 }
 
 @layer base {
@@ -158,30 +171,50 @@
   }
 }
 
-.reveal {
+/* Entrada no scroll (componente `Reveal`). Só esconde quando há JS. */
+.js .reveal {
   opacity: 0;
   transform: translateY(12px);
   transition:
-    opacity 0.6s ease,
-    transform 0.6s ease;
+    opacity var(--duration-slow) var(--ease-out-soft),
+    transform var(--duration-slow) var(--ease-out-soft);
+  transition-delay: calc(var(--i, 0) * var(--stagger) + var(--reveal-delay, 0ms));
 }
 
-.reveal.is-visible {
+.js .reveal.is-visible {
   opacity: 1;
   transform: none;
 }
 
-@keyframes cta-ring {
-  0% {
-    box-shadow: 0 0 0 0 color-mix(in srgb, var(--primary) 45%, transparent);
-  }
-  100% {
-    box-shadow: 0 0 0 14px transparent;
-  }
+/* Entradas com motion (BlurFade) saem do pré-render com opacity 0 inline.
+   Sem JS elas nunca animariam: mostra direto. */
+html:not(.js) [data-motion-enter] {
+  opacity: 1 !important;
+  filter: none !important;
+  transform: none !important;
 }
 
-.cta-ring {
-  animation: cta-ring 2.4s ease-out infinite;
+/* Anel do CTA: 3 pulsos e para (sem loop infinito). transform/opacity só. */
+.cta-ring::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 0 0 2px var(--primary);
+  opacity: 0;
+  pointer-events: none;
+  animation: cta-ring 2.4s var(--ease-out-soft) 1s 3;
+}
+
+@keyframes cta-ring {
+  0% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.18, 1.35);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -189,18 +222,27 @@
     scroll-behavior: auto;
   }
 
-  .reveal {
+  .js .reveal {
     opacity: 1;
     transform: none;
     transition: none;
   }
 
+  .cta-ring::after {
+    animation: none;
+  }
+
+  /* Rede de segurança: encurta tudo e zera atrasos para nada ficar invisível
+     esperando um delay. Movimento essencial deve ser trocado por fade no
+     próprio componente, não depender só disto. */
   *,
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
     scroll-behavior: auto !important;
   }
 }

@@ -73,6 +73,7 @@ export function BlurFade({
   return (
     <motion.div
         ref={ref}
+        data-motion-enter=""
         initial={reduced ? "visible" : "hidden"}
         animate={reduced || isInView ? "visible" : "hidden"}
         variants={combinedVariants}
