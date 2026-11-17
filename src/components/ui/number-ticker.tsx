@@ -1,6 +1,7 @@
-import { useEffect, useRef, type ComponentPropsWithoutRef } from "react"
+import { useEffect, useLayoutEffect, useRef, type ComponentPropsWithoutRef } from "react"
 import { useInView, useMotionValue, useSpring } from "motion/react"
 
+import { prefersReducedMotion } from "@/hooks/use-prefers-reduced-motion"
 import { cn } from "@/lib/utils"
 
 interface NumberTickerProps extends ComponentPropsWithoutRef<"span"> {
@@ -34,7 +35,7 @@ export function NumberTicker({
     let timer: ReturnType<typeof setTimeout> | null = null
 
     if (isInView) {
-      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      const reduced = prefersReducedMotion()
       timer = setTimeout(() => {
         motionValue.set(direction === "down" ? startValue : value)
       }, reduced ? 0 : delay * 1000)
@@ -47,15 +48,25 @@ export function NumberTicker({
     }
   }, [motionValue, isInView, delay, value, direction, startValue])
 
+  const format = (n: number) =>
+    Intl.NumberFormat(locale, {
+      minimumFractionDigits: decimalPlaces,
+      maximumFractionDigits: decimalPlaces,
+    }).format(Number(n.toFixed(decimalPlaces)))
+
+  // The prerendered HTML carries the final number (crawlers, no-JS, reduced
+  // motion). Only after hydration, and only if motion is allowed, rewind it to
+  // the start so the count can play when the ticker scrolls into view.
+  useLayoutEffect(() => {
+    if (!ref.current || isInView) return
+    if (prefersReducedMotion()) return
+    ref.current.textContent = format(direction === "down" ? value : startValue)
+  }, [])
+
   useEffect(
     () =>
       springValue.on("change", (latest) => {
-        if (ref.current) {
-          ref.current.textContent = Intl.NumberFormat(locale, {
-            minimumFractionDigits: decimalPlaces,
-            maximumFractionDigits: decimalPlaces,
-          }).format(Number(latest.toFixed(decimalPlaces)))
-        }
+        if (ref.current) ref.current.textContent = format(latest)
       }),
     [springValue, decimalPlaces, locale]
   )
@@ -69,7 +80,7 @@ export function NumberTicker({
       )}
       {...props}
     >
-      {startValue}
+      {format(direction === "down" ? startValue : value)}
     </span>
   )
 }
