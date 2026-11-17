@@ -1,61 +1,72 @@
 # UI Guidance
 
-Diretrizes visuais para landings deste esqueleto. Leia junto com o `PRD.md` e o `ART_DIRECTION.md` do cliente.
-O processo completo (do tema aos prints) está na skill `.cursor/skills/design-landing/`.
+Diretrizes visuais das landings deste template. Leia junto com `PRD.md` e `ART_DIRECTION.md` do cliente. O processo completo está na skill `.agents/skills/design-landing/`.
 
-## Criatividade alinhada ao tema
+O site deve **só poder ser deste cliente**. Por isso as regras têm três camadas: o que nunca muda, o que costuma funcionar e o que é livre. A maior parte do trabalho criativo acontece na terceira.
 
-O site deve **só poder ser deste cliente**. Criatividade aqui não é somar efeitos — é tirar a forma do próprio ofício.
+## 1. Invariantes — sempre
 
-1. **Conceito antes de componente** — uma ideia central vinda do mundo do cliente (ex.: "ficha de ordem de serviço" para uma oficina). Cor, fonte, textura, movimento e microcopy saem dela.
-2. **Use um suporte físico do segmento como estrutura** — cardápio, receita, prancha técnica, caderno, etiqueta. Isso dá personalidade sem cair em cards genéricos.
-3. **Um momento assinatura** — uma coisa memorável por página, de preferência no primeiro viewport. Só uma.
-4. **Subverta um clichê do segmento** — saiba qual é o clichê (balança na advocacia, cérebro na psicologia) e faça outra coisa de propósito.
-5. **Personalize os efeitos** — cor, velocidade e densidade ajustadas ao conceito. Efeito com valores default denuncia template.
-6. **Microcopy com voz** — botões e títulos no tom da marca, não "Saiba mais" / "Nossos serviços".
-7. **Cliente não sabe responder? Proponha.** Hipóteses explícitas + direções contrastantes para ele reagir.
+**Identidade do cliente**
+- Tipografia, logo e cores da marca são as da identidade visual do cliente.
+- Fonte ou cor de marca fora da identidade só entra se for sugerida e **validada** pelo usuário antes de ir para o código.
+- Cliente sem identidade tipográfica: propor o par (display + corpo) com o motivo e aguardar validação.
 
-## Princípios de composição (sempre)
+**Uso**
+- Hierarquia legível no primeiro viewport: quem é, o que faz, como falar com ele.
+- Contraste AA (4.5:1 texto, 3:1 texto grande e ícones de ação).
+- Contato (WhatsApp, e-mail, redes) visível cedo e funcionando; alvo de toque ≥ 44px; CTA principal alcançável com o polegar no mobile.
+- Funciona de 360px a 1920px sem rolagem horizontal.
 
-1. **Uma composição no primeiro viewport** — marca + 1 headline + 1 frase + 1 grupo de CTA + visual dominante.
-2. **Marca em primeiro plano** — se remover o nav, ainda dá para saber de quem é o site.
-3. **Hero full-bleed** — fundo/efeito de borda a borda; sem cards flutuando no hero.
-4. **Uma função por seção** — um título, uma frase de apoio.
-5. **Poucos cards** — só se forem necessários para interação.
-6. **Movimento com intenção** — 2–3 animações com propósito (BlurFade, TypingAnimation, Particles…), não ruído.
+**Técnica**
+- `prefers-reduced-motion` respeitado; conteúdo visível sem JS (skill `motion`).
+- Performance: LCP < 2,5s no mobile, imagens otimizadas, sem vídeo pesado (skill `seo`).
+- Semântica: um `h1`, seções com `h2`, textos em HTML (skills `building-sections` e `seo`).
 
-## Tipografia
+## 2. Heurísticas — padrão que se quebra com motivo
 
-- Defina display ≠ corpo em `@theme` (`src/styles/main.css`); fontes no `index.html`.
-- A fonte de display é a maior alavanca de personalidade — escolha pelo conceito, não pela moda.
-- Evite stacks default como face principal de marca: Inter, Roboto, Arial, system-ui.
-- O demo usa Syne + DM Sans + IBM Plex Mono — troque por cliente.
+Valem quando nada no conceito pede outra coisa. Quebrar de propósito é bem-vindo: registre o motivo em `ART_DIRECTION.md` ("Estrutura").
 
-## Cor e clima
+- Primeiro viewport com **uma** composição: marca + headline + apoio + CTA + visual dominante.
+- Marca em primeiro plano: sem o nav, ainda dá para saber de quem é o site.
+- Hero de borda a borda, sem cards flutuando por cima.
+- Uma função por seção.
+- Poucos cards; preferir tipografia, espaço e grafismo a caixas com sombra e pílulas.
+- Um momento assinatura por página, visível cedo.
+- Subverter um clichê do segmento.
+- Efeitos do bank com cor, velocidade e densidade ajustadas; valores default denunciam template.
+- Evitar estéticas genéricas de IA/dashboard: gradiente roxo com glow, chips flutuantes, grade de três cards com ícone como estrutura da página inteira.
 
-- Ajuste `--color-brand`, `--primary` e tokens shadcn em `main.css`.
-- Tire a paleta do mundo do cliente (fachada, uniforme, materiais do ofício), não de uma paleta pronta.
-- Evitar clichês: roxo/indigo genérico; cream + serif + terracotta "AI default"; glow; pills demais.
+## 3. Território livre — onde a criatividade trabalha
+
+Sem receita. Saia do conceito do cliente, não do demo nem do último projeto (`REFERENCES.md`).
+
+- **Estrutura da página**: documento, narrativa de scroll, pôster, índice editorial, linha do tempo, mesa de trabalho, conversa… (ideias na skill `design-landing`).
+- **Composição**: assimetria, sobreposição, grids quebrados, escala extrema, texto como imagem.
+- **Uso da tipografia da marca**: escala, peso, caixa, tracking, ritmo, alinhamentos.
+- **Cores de apoio** que conversem com a marca, texturas, ilustração, fotografia, grafismo autoral (`src/components/handmade/`).
+- **Movimento** com conceito (skill `motion`).
+- **Microcopy** com voz: botões e títulos no tom da marca, não "Saiba mais" / "Nossos serviços".
+- **Componentes**: o bank é ponto de partida; componente autoral feito para este cliente costuma valer mais que três efeitos prontos.
+
+## Tokens
+
+- Cores e raio: `:root` em `src/styles/main.css` (`--primary`, `--background`…); cor de canvas em `brandColor` (`src/lib/theme.ts`).
+- Fontes: `--font-display`, `--font-sans`, `--font-mono` em `@theme`; carregamento no `index.html` ou self-host.
+- Movimento: `--duration-*`, `--ease-*`, `--stagger`.
 
 ## Kits de UI
 
-- Prefira componentes já em `src/components/` — escolha pela seção "Escolha por clima" do README da pasta.
-- Não sobrecarregue a página com todo o bank — escolha 2–4 efeitos.
-
-## Contato
-
-Botões claros para WhatsApp / e-mail / rede. Sem formulário server-side neste stack.
+- Escolha pelo conceito em `src/components/README.md` ("Escolha por clima").
+- Não espalhe o bank inteiro pela página.
 
 ## Checklist antes de entregar
 
-Verificar com prints reais (390px e 1440px), não de cabeça.
+Verificar com `npm run shots` (390px e 1440px), não de cabeça.
 
+- [ ] Invariantes atendidos
 - [ ] Teste da marca coberta: sem nome/logo, dá para adivinhar o segmento
 - [ ] Teste da troca: trocando só os textos, **não** serviria para outro cliente
+- [ ] Teste do projeto anterior: não parece irmão do último projeto
 - [ ] Momento assinatura presente e visível cedo
-- [ ] Tokens de cor/fonte ajustados ao cliente
-- [ ] Placeholders de texto/links removidos
-- [ ] Contraste legível
-- [ ] Mobile: CTAs usáveis com o polegar
-- [ ] Sem chips/overlays decorativos soltos no hero
+- [ ] Heurística quebrada tem motivo registrado
 - [ ] Nenhum efeito só porque existe no bank
