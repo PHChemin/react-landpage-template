@@ -1,7 +1,7 @@
 import type { ComponentProps, ReactNode } from "react"
 
 import { cn } from "@/lib/utils"
-import { links } from "@/lib/links"
+import { links } from "@/site.config"
 
 function WhatsAppIcon({ className }: { className?: string }) {
   return (
@@ -16,7 +16,11 @@ type WhatsAppCtaProps = Omit<ComponentProps<"a">, "href"> & {
   label?: string
   size?: "md" | "lg"
   icon?: ReactNode
+  /** Três pulsos de anel ao carregar para puxar o olho. Use em um CTA por página. */
+  pulse?: boolean
 }
+
+export { WhatsAppIcon }
 
 /** Primary contact link. Real anchor so it works without JavaScript. */
 export function WhatsAppCta({
@@ -24,6 +28,7 @@ export function WhatsAppCta({
   label = "WhatsApp",
   size = "lg",
   icon,
+  pulse = false,
   className,
   ...props
 }: WhatsAppCtaProps) {
@@ -33,8 +38,9 @@ export function WhatsAppCta({
       target="_blank"
       rel="noopener noreferrer"
       className={cn(
-        "cta-ring group relative inline-flex max-w-full items-center justify-center gap-2.5 rounded-md bg-primary font-semibold text-primary-foreground",
+        "group relative inline-flex max-w-full items-center justify-center gap-2.5 rounded-md bg-primary font-semibold text-primary-foreground",
         "focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50",
+        pulse && "cta-ring",
         size === "lg" ? "min-h-11 px-6 py-3 text-base" : "min-h-11 px-4 text-sm",
         className,
       )}
@@ -44,6 +50,7 @@ export function WhatsAppCta({
         {icon ?? <WhatsAppIcon className="size-4 shrink-0" />}
         <span className="truncate">{label}</span>
       </span>
+      <span className="sr-only"> (abre em nova aba)</span>
     </a>
   )
 }
