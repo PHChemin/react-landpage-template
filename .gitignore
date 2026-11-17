@@ -16,3 +16,6 @@ dist/
 !.vscode/extensions.json
 .idea/
 .originkit/
+
+# Prints de verificação (npm run shots)
+.shots/
