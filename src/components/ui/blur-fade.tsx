@@ -7,7 +7,7 @@ import {
   type Variants,
 } from "motion/react"
 
-import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion"
+import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion"
 
 type MarginType = UseInViewOptions["margin"]
 
@@ -73,6 +73,7 @@ export function BlurFade({
   return (
     <motion.div
         ref={ref}
+        data-motion-enter=""
         initial={reduced ? "visible" : "hidden"}
         animate={reduced || isInView ? "visible" : "hidden"}
         variants={combinedVariants}

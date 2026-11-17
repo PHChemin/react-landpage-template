@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 import type { CSSProperties } from "react";
 
 interface ShakeValue {
@@ -63,18 +63,31 @@ function easeToCss(ease: any): string {
   }
 }
 
+/** Seeded PRNG: same keyframes on the prerendered HTML and on hydration. */
+function seededRandom(seed: number) {
+  let a = seed >>> 0;
+  return () => {
+    a = (a + 0x6d2b79f5) >>> 0;
+    let t = a;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
 function buildSliceKeyframes(
   minHeight: number,
   maxHeight: number,
   hueRotate: boolean
 ): string {
+  const random = seededRandom(minHeight * 1000 + maxHeight);
   const steps = 8;
   let frames = "";
   for (let i = 0; i <= steps; i++) {
     const pct = (i / steps) * 100;
-    const offset = (Math.random() * 2 - 1) * 10;
-    const height = minHeight + Math.random() * (maxHeight - minHeight);
-    const hue = hueRotate ? Math.floor(Math.random() * 360) : 0;
+    const offset = (random() * 2 - 1) * 10;
+    const height = minHeight + random() * (maxHeight - minHeight);
+    const hue = hueRotate ? Math.floor(random() * 360) : 0;
     frames += `${pct}% { clip-path: inset(${Math.max(
       0,
       Math.min(100 - height, 50 + offset)
@@ -109,10 +122,7 @@ export default function GlitchEffect({
   const wrapperRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const animationName = useMemo(
-    () => `glitch-anim-${Math.random().toString(36).slice(2)}`,
-    []
-  );
+  const animationName = `glitch-anim-${useId().replace(/[^a-zA-Z0-9_-]/g, "")}`;
 
   const timing = useMemo(
     () => ({

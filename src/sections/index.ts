@@ -1,0 +1,6 @@
+export { About } from "./about"
+export { Contact } from "./contact"
+export { Hero } from "./hero"
+export { Services } from "./services"
+export { SiteFooter } from "./site-footer"
+export { Works } from "./works"

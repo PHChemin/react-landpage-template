@@ -1,6 +1,6 @@
 # React Landpage Template
 
-Esqueleto para landings freelance com **Vite + React + TypeScript + Tailwind CSS v4**, motion (Magic UI / Originkit) e deploy gratuito no **GitHub Pages**.
+Esqueleto para landings freelance com **Vite + React + TypeScript + Tailwind CSS v4**, motion (Magic UI / Animate UI / Originkit), HTML pré-renderizado para SEO e deploy gratuito no **GitHub Pages**.
 
 Irmão HTML-only: [github-landpage-template](https://github.com/PHChemin/github-landpage-template).
 
@@ -11,14 +11,15 @@ Irmão HTML-only: [github-landpage-template](https://github.com/PHChemin/github-
 | UI | React 19 + TypeScript |
 | Estilo | Tailwind v4 (`@tailwindcss/vite`) + tokens shadcn |
 | Motion bank | Magic UI (via shadcn) + Originkit (pré-baixado) + handmade |
-| Build | Vite → `dist/` estático |
+| Build | Vite → `dist/` estático, pré-renderizado (conteúdo no HTML) |
+| SEO | `src/site.config.ts` → metas, Open Graph, JSON-LD, robots, sitemap |
 | Deploy | GitHub Actions → GitHub Pages |
 
 ```
 código (React, Tailwind, deps)
         │
-        ▼  vite build
-     dist/  (HTML/CSS/JS prontos)
+        ▼  npm run build (vite build + pré-render)
+     dist/  (HTML com o conteúdo + CSS/JS)
         │
         ▼  Actions
   GitHub Pages (site no ar)
@@ -36,11 +37,12 @@ Abra o endereço do terminal (geralmente `http://localhost:5173`).
 ### Checklist de personalização
 
 1. Preencha `docs/CLIENT_BRIEF.md` e `docs/PRD.md`.
-2. Ajuste tokens/cores em `src/styles/main.css`.
-3. Troque textos, links e CTAs em `src/App.tsx` (e `index.html` title/description).
-4. Coloque logo/fotos em `public/` se precisar.
-5. `npm run build` → `npm run preview`.
-6. Deploy: `docs/DEPLOY.md`.
+2. Identidade, contatos e SEO em `src/site.config.ts`; textos em `src/content.ts`.
+3. Tokens de cor, fonte e movimento em `src/styles/main.css`; fontes da identidade no `index.html`.
+4. Seções em `src/sections/` (o demo é vitrine do bank — monte a estrutura do cliente).
+5. Logo, fotos, `og-image.png` (1200×630) e `apple-touch-icon.png` em `public/`.
+6. `npm run build` (lista os placeholders que sobraram) → `npm run shots`.
+7. Deploy: `docs/DEPLOY.md`.
 
 Contato só via links (`wa.me`, `mailto:`, redes) — Pages é estático.
 
@@ -72,14 +74,30 @@ Config: `components.json` (shadcn + registry `@magicui`) e `originkit.components
 
 > Não commite a pasta `.originkit/` (login/cache local). Já está no `.gitignore`.
 
-## Docs (humano + IA)
+## Agentes de IA
+
+Instruções em [`AGENTS.md`](AGENTS.md) (lido por Cursor, Codex, Copilot, Gemini…; o Claude Code lê pelo `CLAUDE.md`). Skills em [`.agents/skills/`](.agents/skills/) — `.claude/skills` aponta para a mesma pasta.
+
+| Skill | Para |
+| --- | --- |
+| `design-landing` | Do tema do cliente ao visual, com prints |
+| `building-sections` | Seções, componentes, barrels e imports |
+| `motion` | Animações: ferramenta, tokens, reduced motion, performance |
+| `seo` | Busca no Google e em assistentes de IA |
+| `writing-docs` | Docs só com o estado atual |
+| `git-commit` / `pull-request` | Commits e PRs (nada sem pedido; merge só com confirmação) |
+| `delivery-qa` | Conferência antes de entregar |
+
+## Docs
 
 | Arquivo | Uso |
 | --- | --- |
 | [docs/CLIENT_BRIEF.md](docs/CLIENT_BRIEF.md) | Respostas rápidas do cliente |
 | [docs/PRD.md](docs/PRD.md) | Requisitos do projeto |
 | [docs/SDD.md](docs/SDD.md) | Decisão técnica / arquitetura |
-| [docs/UI_GUIDANCE.md](docs/UI_GUIDANCE.md) | Regras de design |
+| [docs/UI_GUIDANCE.md](docs/UI_GUIDANCE.md) | Invariantes, heurísticas e território livre de design |
+| [docs/ART_DIRECTION.md](docs/ART_DIRECTION.md) | Direção visual vigente do cliente |
+| [docs/REFERENCES.md](docs/REFERENCES.md) | Projetos que funcionaram (e o que não repetir) |
 | [docs/DEPLOY.md](docs/DEPLOY.md) | Pages, Actions e domínio custom |
 
 ## Deploy
@@ -94,13 +112,20 @@ Config: `components.json` (shadcn + registry `@magicui`) e `originkit.components
 
 ```bash
 npm run dev       # desenvolvimento
-npm run build     # gera dist/
+npm run build     # dist/ pré-renderizado + robots.txt + sitemap.xml
 npm run preview   # testa o build localmente
+npm run shots     # prints 390/1440 em .shots/ + erros do console
+```
+
+`npm run shots` usa Playwright via `npx` (sem dependência no projeto). Na primeira vez:
+
+```bash
+npx playwright@1.52.0 install chromium
 ```
 
 ## Segurança / o que NÃO versionar
 
 - `.env` / secrets / API keys
 - `.originkit/` (credenciais/cache do CLI)
-- `node_modules/`, `dist/`
+- `node_modules/`, `dist/`, `.shots/`
 - Dados reais do cliente (WhatsApp, e-mail) até o fork do projeto — este template usa **placeholders**

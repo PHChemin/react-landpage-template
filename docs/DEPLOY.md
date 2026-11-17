@@ -21,6 +21,7 @@ Documentação oficial: [Configuring a custom domain](https://docs.github.com/pt
 2. Digite o domínio (ex.: `www.cliente.com.br` ou `linktree.cliente.com.br`)
 3. Salve e aguarde a checagem DNS
 4. Depois de ok, marque **Enforce HTTPS**
+5. Atualize `url` em `src/site.config.ts` para o domínio final (canonical, Open Graph, sitemap e robots usam esse valor)
 
 ### No DNS do domínio (registrador)
 
@@ -52,7 +53,7 @@ Propagação: minutos a 48h. Enquanto isso o `*.github.io` já funciona.
 ```bash
 npm install
 npm run dev      # http://localhost:5173
-npm run build    # gera dist/
+npm run build    # gera dist/ pré-renderizado
 npm run preview  # testa o build
 ```
 
@@ -61,4 +62,6 @@ npm run preview  # testa o build
 - [ ] Source do Pages = GitHub Actions
 - [ ] Último workflow em verde
 - [ ] Domínio configurado (se houver) + HTTPS
+- [ ] `site.url` = domínio final; `/robots.txt` e `/sitemap.xml` respondem
 - [ ] WhatsApp / e-mail / redes testados no ar
+- [ ] Revisão completa: skill `delivery-qa`

@@ -1,7 +1,7 @@
 # Brief rápido do cliente
 
-Cole as respostas aqui antes de pedir à IA para personalizar o esqueleto.
-**Só "Dados" é essencial.** O resto ajuda, mas cliente raramente sabe responder perguntas visuais — deixe em branco o que ele não souber. A IA infere a partir do segmento e propõe direções para testar com ele (ver `docs/ART_DIRECTION.md`).
+Cole as respostas aqui antes de pedir ao agente para personalizar o esqueleto.
+**Só "Dados" é essencial.** O resto ajuda, mas cliente raramente sabe responder perguntas visuais — deixe em branco o que ele não souber. O agente infere a partir do segmento, registra premissas e propõe direções para testar com ele (skill `design-landing`).
 
 ## Dados (essencial)
 
@@ -14,6 +14,7 @@ Cole as respostas aqui antes de pedir à IA para personalizar o esqueleto.
 - Instagram / outras redes:
 - Domínio desejado:
 - Logo / fotos disponíveis (reais do cliente valem mais que banco de imagem):
+- Identidade visual (manual, fontes, cores oficiais) — se existir, é o que vale:
 
 ## Negócio (ajuda muito, e o cliente costuma saber)
 
@@ -30,7 +31,7 @@ Cole as respostas aqui antes de pedir à IA para personalizar o esqueleto.
 - Sobre (3–5 linhas) — se o layout tiver seção sobre:
 - Expressões que ele ou os clientes dele usam (gírias, jargão, bordões):
 
-## Visual (opcional — em branco = a IA propõe)
+## Visual (opcional — em branco = o agente propõe)
 
 Perguntas indiretas funcionam melhor que "qual cor você quer?".
 
@@ -38,9 +39,18 @@ Perguntas indiretas funcionam melhor que "qual cor você quer?".
 - 3 palavras que a marca **não** é:
 - Uma marca, lugar ou objeto (de qualquer área) que tem a "cara" que ele quer:
 - Cores que já usa (fachada, uniforme, embalagem, Instagram):
+- Fontes que já usa (logo, cardápio, placa, Instagram):
 - O que NÃO quer no visual:
 - Referências visuais (links):
 - Abertura a arriscar (seguro / meio-termo / pode ousar):
+
+## Busca (SEO)
+
+- Como as pessoas procuram esse serviço (palavras, perguntas):
+- Cidades/bairros atendidos:
+- Atende presencial, online ou os dois:
+- Perguntas que o cliente responde todo dia no WhatsApp (viram FAQ):
+- Tem Google Business Profile? Link:
 
 ## Formato
 

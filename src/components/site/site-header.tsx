@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, type ReactNode } from "react"
 import { Menu } from "lucide-react"
 
 import { cn } from "@/lib/utils"
-import { useActiveSection } from "@/lib/use-active-section"
+import { useActiveSection } from "@/hooks/use-active-section"
 import {
   Sheet,
   SheetClose,

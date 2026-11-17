@@ -1,13 +1,25 @@
 # Direção de arte
 
-Preenchido pela IA (skill `design-landing`) **antes** de codar, e atualizado a cada rodada com o cliente.
-Campos que o cliente não soube responder viram **hipóteses** — escreva-as, não deixe em branco.
+Direção visual vigente do site. Preenchida pela skill `design-landing` **antes** de codar o visual e atualizada para o novo estado quando algo muda. Só o que vale hoje — sem alternativas nem histórico (skill `writing-docs`).
 
-## Hipóteses
+## Premissas
 
-O que foi inferido sem confirmação do cliente (público, tom, clima, faixa de preço…).
+Informação inferida que guia o design. Marque `(a confirmar)` até o cliente validar.
 
-- 
+- Público:
+- Tom:
+- Faixa de preço:
+
+## Identidade
+
+| Item | Valor |
+| --- | --- |
+| Display | (fonte da identidade) |
+| Corpo | |
+| Mono / apoio | (opcional) |
+| Cor da marca | `#` |
+| Cores de apoio | `#` fundo · `#` texto · `#` acento — origem de cada uma |
+| Logo | arquivo em `public/` |
 
 ## Universo do tema
 
@@ -15,46 +27,27 @@ O que foi inferido sem confirmação do cliente (público, tom, clima, faixa de 
 | --- | --- | --- | --- | --- |
 | | | | | |
 
-**Clichê do segmento a evitar:** 
+**Clichê do segmento que o site evita:**
 
-## Direções
+## Conceito
 
-### A — Fiel
+**Em uma frase:**
 
-- **Conceito (1 frase):** 
-- **Paleta:** `#` fundo · `#` texto · `#` marca · `#` acento — por quê:
-- **Tipografia:** display — corpo — (mono?)
-- **Hero:** o que ocupa a tela
-- **Momento assinatura:** 
-- **Componentes do bank:** (2–3, com o motivo)
-- **Risco:** 
+**Estrutura da página:** (ex.: ficha de ordem de serviço; narrativa em etapas)
 
-### B — Ousada (recomendada)
+**Primeiro viewport:**
 
-- **Conceito (1 frase):** 
-- **Paleta:** 
-- **Tipografia:** 
-- **Hero:** 
-- **Momento assinatura:** 
-- **Componentes do bank:** 
-- **Risco:** 
+**Momento assinatura:**
 
-### C — Arriscada
+**Movimento:** ritmo e gesto principal
 
-- **Conceito (1 frase):** 
-- **Paleta:** 
-- **Tipografia:** 
-- **Hero:** 
-- **Momento assinatura:** 
-- **Componentes do bank:** 
-- **Risco:** 
+**Componentes:** bank ou autorais, com o papel de cada um
 
-## Escolhida
+**Heurísticas quebradas e por quê:**
 
-Direção: · Motivo: · Data:
+## Microcopy
 
-## Histórico de feedback
-
-| Rodada | Cliente disse | O que mudou | Resultado |
-| --- | --- | --- | --- |
-| 1 | | | |
+| Lugar | Texto |
+| --- | --- |
+| CTA principal | |
+| Rodapé | |

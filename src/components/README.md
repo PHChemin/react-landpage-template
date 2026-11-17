@@ -1,6 +1,8 @@
 # Component bank
 
-Inventário do que já vem no template. Amplie aos poucos; no cliente, prefira o que já está aqui.
+Inventário do que já vem no template. Amplie aos poucos. No cliente, o bank é ponto de partida: quando o conceito pede algo próprio, crie em `handmade/`.
+
+Cada contexto tem um `index.ts`: telas e seções importam de `@/components/<contexto>`; dentro de `src/components/` o import é pelo arquivo. Ao adicionar um componente, exporte no `index.ts` do contexto e registre aqui (skill `building-sections`).
 
 ## Escolha por clima
 
@@ -21,7 +23,7 @@ Os climas se misturam: uma barbearia pode ser "artesanal + sério"; um dev pode 
 
 | Component | File | Notes |
 | --- | --- | --- |
-| GlitchText | `glitch-text.tsx` | Disponível; não usado no demo |
+| GlitchText | `glitch-text.tsx` | Export `GlitchText`; não usado no demo |
 
 Cresça este banco no template (`npx originkit add …`) para não gastar a cota free em projetos.
 
@@ -74,7 +76,7 @@ Os arquivos foram ajustados (tokens do tema, a11y, pt-BR) — reinstalar sobresc
 | MotionCarousel | `components/community/motion-carousel.tsx` | Embla + slides com escala e dots em pílula; aceita qualquer `ReactNode` |
 | PreviewLinkCard | `components/radix/preview-link-card.tsx` | Prévia do link no hover (Radix HoverCard) |
 
-Todos aceitam `asChild` para virar `<a>`. O app inteiro está dentro de `<MotionConfig reducedMotion="user">` (`main.tsx`).
+Todos aceitam `asChild` para virar `<a>`. No barrel, o `Button` base sai como `AnimateButton` (não colide com o de `ui/`). O app inteiro está dentro de `<MotionConfig reducedMotion="user">` (`main.tsx`).
 
 PreviewLinkCard: sem `src`, a imagem vem do screenshot da API do microlink (cota free limitada e depende de serviço externo). Em produção, gere o print e passe `src="/previews/site.webp"`. Só aparece com mouse — no toque vale o link.
 
@@ -87,14 +89,14 @@ npx shadcn@latest add @animate-ui/components-radix-<nome>
 
 ## Site (`site/`)
 
-Peças que se repetem em landing com seções. O demo em `App.tsx` usa todas.
+Peças que se repetem entre seções. As seções do demo (`src/sections/`) usam todas.
 
 | Component | File | Notes |
 | --- | --- | --- |
 | SiteHeader | `site-header.tsx` | Âncoras, seção ativa, esconde ao rolar, menu no Sheet |
-| WhatsAppCta | `whatsapp-cta.tsx` | Link real para `wa.me` |
+| WhatsAppCta | `whatsapp-cta.tsx` | Link real para `wa.me` (de `site.config.ts`); `pulse` dá 3 pulsos de anel |
 | SectionHeading | `section-heading.tsx` | Eyebrow, título e frase |
-| Reveal | `reveal.tsx` | Entrada no scroll, sem blur |
+| Reveal | `reveal.tsx` | Entrada no scroll, sem blur; `index` faz o stagger; visível sem JS |
 
 ## Handmade (`handmade/`)
 
@@ -114,14 +116,19 @@ Peças que se repetem em landing com seções. O demo em `App.tsx` usa todas.
 `colors={[...]}` sorteia uma cor por partícula (substitui `color`). Com emoji, a cor não se aplica.
 
 ```tsx
-<ClickEffects variant="confetti" colors={[BRAND, "#f4f5f7", "#e0b04a"]} />
+<ClickEffects variant="confetti" colors={[brandColor, "#f4f5f7", "#e0b04a"]} />
 <ClickEffects variant="icon" icon="🧁" />
 ```
 
-## Util
+## Hooks (`src/hooks/`)
 
-- `src/lib/utils.ts` — `cn()` (clsx + tailwind-merge)
-- `src/lib/links.ts` — URLs, nav e textos de exemplo do demo
-- `src/lib/use-active-section.ts` — seção visível para o header
-- `src/lib/theme.ts` — detecta fundo escuro sem depender da classe `.dark`
-- `src/lib/use-prefers-reduced-motion.ts`
+- `usePrefersReducedMotion()` / `prefersReducedMotion()` — única fonte de reduced motion em JS
+- `useActiveSection(ids)` — seção visível para o header
+- `useControlledState` — base do Animate UI
+
+## Util (`src/lib/`)
+
+- `utils.ts` — `cn()` (clsx + tailwind-merge)
+- `asset.ts` — `asset("/foto.webp")` respeita o `base` do Vite
+- `theme.ts` — `brandColor` para canvas/WebGL e detecção de fundo escuro
+- `get-strict-context.tsx` — contexto do Animate UI

@@ -16,7 +16,7 @@ import {
 } from "motion/react"
 
 import { cn } from "@/lib/utils"
-import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion"
+import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion"
 
 const motionElements = {
   article: motion.article,

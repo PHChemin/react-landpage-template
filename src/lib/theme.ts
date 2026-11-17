@@ -1,3 +1,9 @@
+/**
+ * Cor da marca para efeitos em canvas/WebGL, que não leem `var(--primary)`.
+ * Manter igual a `--primary` em `src/styles/main.css`.
+ */
+export const brandColor = "#0f6b5c"
+
 import { useEffect, useState } from "react"
 
 /** Tracks the painted page background, not only the `.dark` class. */
