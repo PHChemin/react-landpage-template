@@ -84,14 +84,16 @@ Sementes para o passo 2 da skill. Use como ponto de partida e **subverta pelo me
 
 ## Traduzindo feedback
 
+Tipografia e cores da marca são da identidade: mexa em **uso** (escala, peso, tracking, caixa, espaçamento). Trocar a fonte em si só como sugestão a validar com o usuário.
+
 | Cliente diz | Provavelmente quer dizer | Tente (uma ou duas mudanças por vez) |
 | --- | --- | --- |
-| "Mais moderno" | Menos ornamento, mais respiro | Sans geométrica, menos cores, mais espaço em branco, animação mais rápida e curta |
-| "Mais elegante" / "mais sofisticado" | Menos ruído, mais contraste tipográfico | Serifa de display com corpo leve, paleta reduzida, tracking maior em caixa-alta, menos efeitos |
+| "Mais moderno" | Menos ornamento, mais respiro | Menos cores de apoio, mais espaço em branco, títulos com peso/escala mais limpos, animação mais rápida e curta |
+| "Mais elegante" / "mais sofisticado" | Menos ruído, mais contraste tipográfico | Peso mais leve e escala maior nos títulos, paleta reduzida, tracking maior em caixa-alta, menos efeitos |
 | "Mais alegre" / "mais vivo" | Mais cor e movimento | Cor de acento mais saturada, uma micro-interação divertida, fotos com gente |
 | "Mais sério" / "mais profissional" | Mais confiança | Grid mais rígido, menos efeitos, números e provas (anos, clientes), fotos reais |
 | "Sem graça" / "faltou algo" | Falta momento assinatura | Reforçar o conceito no hero; adicionar **um** elemento memorável, não vários |
 | "Poluído" / "muita coisa" | Excesso de efeito ou de seção | Cortar efeitos para 2, juntar seções, aumentar espaçamento |
 | "Não parece comigo" | Conceito errado, não acabamento | Voltar ao passo 2 com ele: pedir 3 marcas/lugares que ele admira (de qualquer área) |
-| "Gostei, mas…" sem saber o quê | Incerteza | Mostrar duas variações lado a lado de uma variável só (ex.: duas paletas) |
+| "Gostei, mas…" sem saber o quê | Incerteza | Mostrar duas variações lado a lado de uma variável só (ex.: duas composições do hero) |
 | "Igual ao site X" | Quer a sensação de X, não a cópia | Identificar o que de X agrada (cor? ritmo? fotos?) e aplicar ao conceito dele |
